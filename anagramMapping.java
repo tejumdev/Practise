@@ -1,18 +1,28 @@
 package practise;
 
+
 import java.util.stream.IntStream;
 
 public class anagramMapping {
 	
     public static int[] anagramMappings(int[] A, int[] B) {
         int a_len = A.length;
-       int[] res = new int[a_len];
-       for(int i=0; i < a_len; i++)
-       {
-           int ele = A[i];
-           res[i] = IntStream.range(0,a_len).filter(index -> ele == B[index]).findFirst().orElse(-1);
-       }
-       return res;
+        int b_len = B.length;
+        int size =   IntStream.of(B).max().getAsInt();
+        
+        int[] pos = new int[size+1];
+        
+        for(int i=0; i< b_len;i++)
+        {
+        	pos[B[i]] = i;
+        }
+        
+        for(int i=0;i<a_len;i++)
+        {
+        	A[i] = pos[A[i]];
+        }
+     
+        return A;
     }
     
     public static void main(String[] args)
